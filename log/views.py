@@ -11,7 +11,7 @@ class LogAPIView(APIView):
     permission_classes = [IsAuthenticated,]
     def get(self, request):
         """
-        달력정보
+        달력에서 보는정보
         """
         logs=Log.objects.filter(author_id=request.user.id)
         serializer=LogSerializer(logs, many=True)
