@@ -5,9 +5,10 @@ from .serializers import LogSerializer
 from rest_framework import status, permissions
 from .models import Log
 from rest_framework.generics import get_object_or_404
-
+from rest_framework.permissions import IsAuthenticated
 
 class LogAPIView(APIView):
+    permission_classes = [IsAuthenticated,]
     def get(self, request):
         """
         달력정보
@@ -28,6 +29,16 @@ class LogAPIView(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class LogDetailAPIView(APIView):
+    permission_classes = [IsAuthenticated,]
+
+    def get(self, request, log_id):
+        """
+        상세한 세부내역
+        """
+        log=get_object_or_404(Log, id=log_id)
+        serializer=LogSerializer(log)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
     def put(self, request, log_id):
         """
         로그수정
@@ -47,3 +58,4 @@ class LogDetailAPIView(APIView):
             return Response("삭제완료",status=status.HTTP_204_NO_CONTENT)
         else:
             return Response("권한이 없습니다.", status=status.HTTP_403_FORBIDDEN)
+

@@ -18,6 +18,8 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
+SHORTENER_LIFESPAN=60
+SHORTENER_ENABLE_TEST_PATH = True
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -33,6 +35,9 @@ INSTALLED_APPS = [
 
     # simpleJWT
     'rest_framework_simplejwt',
+
+    # 단축 url
+    'shortener',
 ]
 
 MIDDLEWARE = [
